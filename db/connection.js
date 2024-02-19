@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
+
 const connectToDatabase = async () => {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/foodapp", {
-      useNewUrlParser: true,
-    });
+    await mongoose.connect(
+      "mongodb://sudipta:passwordsudipta@localhost:27017/foodapp",
+      {
+        useNewUrlParser: true,
+      }
+    );
     console.log("Connection to MongoDB successful");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
