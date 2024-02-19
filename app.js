@@ -5,7 +5,8 @@ const cookieparser = require("cookie-parser");
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:
+      "https://65d36fa89a4375008370615b--friendly-sorbet-3264db.netlify.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     allowedHeaders: "Content-Type,Authorization",
