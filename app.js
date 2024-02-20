@@ -5,8 +5,7 @@ const cookieparser = require("cookie-parser");
 app.use(express.json());
 app.use(
   cors({
-    origin:
-      "https://65d36fa89a4375008370615b--friendly-sorbet-3264db.netlify.app",
+    origin: "https://foodiehub-getyourgoodfood.netlify.app/",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     allowedHeaders: "Content-Type,Authorization",
