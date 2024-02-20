@@ -6,7 +6,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://foodiehub-getyourgoodfoods.netlify.app",
+    origin: "https://foodiehub-getyourgoodfoodss.netlify.app",
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     credentials: true,
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
