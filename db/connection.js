@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const connectToDatabase = async () => {
   try {
     await mongoose.connect(
-      "mongodb://sudipta:passwordsudipta@localhost:27017/foodapp",
+      "mongodb+srv://ghoramiswapna32:sC0UOFqg0zDLbGIU@cluster0.acvase5.mongodb.net/foodapp",
       {
         useNewUrlParser: true,
+        useUnifiedTopology: true, // Add this option to use the new Server Discover and Monitoring engine
       }
     );
     console.log("Connection to MongoDB successful");
@@ -14,23 +15,23 @@ const connectToDatabase = async () => {
   }
 };
 
-const fetchResturantData = async () => {
+const fetchRestaurantData = async () => {
   try {
-    // Access the resturantinfo collection
-    const resturantinfoCollection =
-      mongoose.connection.db.collection("resturantinfo");
+    // Access the restaurantinfo collection
+    const restaurantinfoCollection =
+      mongoose.connection.db.collection("restaurantinfo");
 
     // Fetch data from the collection
-    const resturantData = await resturantinfoCollection.find({}).toArray();
+    const restaurantData = await restaurantinfoCollection.find({}).toArray();
 
-    return resturantData; // Return the data for further use if needed
+    return restaurantData; // Return the data for further use if needed
   } catch (error) {
-    console.error("Error fetching resturant data:", error);
+    console.error("Error fetching restaurant data:", error);
     throw error; // Propagate the error if needed
   }
 };
 
 module.exports = {
   connectToDatabase,
-  fetchResturantData,
+  fetchRestaurantData,
 };
