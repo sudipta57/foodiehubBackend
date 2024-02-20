@@ -15,7 +15,7 @@ const nodemailer = require("nodemailer");
 const upload = multer({ storage });
 
 // app.js or wherever you want to use the database connection
-const { fetchResturantData } = require("../db/connection");
+const { fetchRestaurantData } = require("../db/connection");
 
 const Resturant = require("../models/resturentSchema");
 const resturantauthenticate = require("../middleware/resturantAuth");
@@ -113,7 +113,7 @@ router.post("/resturantlogin", async (req, res) => {
 
 router.get("/resturantdata", async (req, res) => {
   // Fetch data from the resturantinfo collection
-  const resturantData = await fetchResturantData();
+  const resturantData = await fetchRestaurantData();
 
   // Send the data as a JSON response
   res.json(resturantData);
