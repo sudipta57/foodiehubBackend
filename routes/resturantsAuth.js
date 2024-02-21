@@ -127,13 +127,14 @@ router.post(
   async (req, res) => {
     try {
       const { foodcat, foodname, pricehalf, pricefull, description } = req.body;
+      console.log(foodcat, foodname, pricehalf, pricefull, description);
 
       if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
       const imagePath = `./uploads/${Date.now()}-${req.file.originalname}`;
-
+      console.log(imgPath);
       // Move the uploaded file to the specified path
       fs.renameSync(req.file.path, imagePath);
 
