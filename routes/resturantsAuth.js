@@ -126,21 +126,28 @@ router.post(
   upload.single("image"),
   async (req, res) => {
     try {
-      const { foodcat, foodname, pricehalf, pricefull, description } = req.body;
-      console.log(foodcat, foodname, pricehalf, pricefull, description);
-
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
+      const { CategoryName, foodname, pricehalf, pricefull, description } =
+        req.body;
+      if (
+        !req.file ||
+        !foodcat ||
+        !foodname ||
+        !pricehalf ||
+        !pricefull ||
+        !description
+      ) {
+        return res
+          .status(400)
+          .json({ error: "Upload and check all the files." });
       }
 
       const imagePath = `./uploads/${Date.now()}-${req.file.originalname}`;
-      console.log(imgPath);
       // Move the uploaded file to the specified path
       fs.renameSync(req.file.path, imagePath);
 
       // Sample data to insert
       const sampleFoodData = {
-        CategoryName: foodcat,
+        CategoryName: CategoryName,
         name: foodname,
         img: imagePath,
         description: description,
@@ -153,31 +160,24 @@ router.post(
         ],
       };
       const findFoodCategory = await foodCatSchema
-        .find({ CategoryName: foodcat })
+        .findOne({ CategoryName })
         .exec();
-
       if (!findFoodCategory) {
-        const insertFoodCat = await foodCatSchema.create({
-          catagoryName: foodCatFromMenu,
+        await foodCatSchema.create({
+          CategoryName,
         });
-
-        if (!insertFoodCat) {
-          return res
-            .status(400)
-            .json({ error: "Food catagory is not inserting" });
-        } else {
-          // Insert the sample data into the FoodData collection
-          const result = await foodData.create(sampleFoodData);
-
-          res
-            .status(200)
-            .json({ message: "File uploaded successfully", result });
-        }
-      } else {
+        console.log("found");
         // Insert the sample data into the FoodData collection
         const result = await foodData.create(sampleFoodData);
 
         res.status(200).json({ message: "File uploaded successfully", result });
+      } else {
+        // Insert the sample data into the FoodData collection
+        const result = await foodData.create(sampleFoodData);
+
+        res
+          .status(200)
+          .json({ message: "File uploadedss successfully", result });
       }
     } catch (error) {
       console.error(error);
@@ -217,7 +217,6 @@ router.get("/resturantmenu", authenticate, async (req, res) => {
 router.get("/foodcatagory", authenticate, async (req, res) => {
   // Fetching food data
   const foodcatagory = await foodCatSchema.find();
-
   // Sending food data
   res.json(foodcatagory);
 });
