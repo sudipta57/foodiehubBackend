@@ -157,6 +157,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid email or password" });
     } else {
       const token = await userExist.generateAuthToken();
+      console.log(token);
       res.cookie("authToken", token, {
         expires: new Date(Date.now() + 3600000),
         httpOnly: true,
