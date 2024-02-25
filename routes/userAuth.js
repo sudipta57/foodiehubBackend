@@ -160,6 +160,7 @@ router.post("/login", async (req, res) => {
       res.cookie("authToken", token, {
         expires: new Date(Date.now() + 3600000),
         httpOnly: true,
+        domain: "https://foodiehubfrontend.vercel.app",
       });
       return res.status(200).json({ message: "Login successfully" });
     }
