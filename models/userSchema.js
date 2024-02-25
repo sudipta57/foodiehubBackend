@@ -51,7 +51,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // generating auth token
-userSchema.methods.generateAuthToken = async function () {
+userSchema.methods.generateAuthToken = async function (res) {
   try {
     const tokenExpiration = process.env.TOKEN_EXPIRATION || "1h"; // Set expiration time (default: 1 hour)
 
@@ -60,7 +60,11 @@ userSchema.methods.generateAuthToken = async function () {
       "IAMSUDIPTAGHORAMI32@GMAIL.COM1232145654",
       { expiresIn: tokenExpiration }
     );
-
+    res.cookie("authToken", createToken, {
+      expires: new Date(Date.now() + 3600000),
+      httpOnly: true,
+      domain: "foodiehubfrontend.vercel.app",
+    });
     this.tokens = this.tokens.concat({ token: createToken });
     await this.save();
 

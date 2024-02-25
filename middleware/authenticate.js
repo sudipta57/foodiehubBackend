@@ -3,7 +3,6 @@ const User = require("../models/userSchema");
 const authenticate = async (req, res, next) => {
   try {
     const tokenfromcookie = req.cookies?.authToken;
-
     if (!tokenfromcookie) {
       return res.status(422).json({ error: "token not provided" });
     }

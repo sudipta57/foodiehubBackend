@@ -143,7 +143,7 @@ router.post("/createotp", (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  if ((!email, !password)) {
+  if (!email || !password) {
     return res.status(422).json({ error: "please fill the inputs" });
   }
   try {
@@ -156,14 +156,11 @@ router.post("/login", async (req, res) => {
     if (!userPasword) {
       return res.status(401).json({ error: "Invalid email or password" });
     } else {
-      const token = await userExist.generateAuthToken();
-      console.log(token);
-      res.cookie("authToken", token, {
-        expires: new Date(Date.now() + 3600000),
-        httpOnly: true,
-        domain: "https://foodiehubfrontend.vercel.app",
-      });
-      return res.status(200).json({ message: "Login successfully" });
+      const token = await userExist.generateAuthToken(res);
+      if (token) {
+        return res.status(200).json({ message: "Login successfully" });
+      }
+      return res.status(402).json({ error: "token not provided" });
     }
   } catch (error) {
     console.error(error);
