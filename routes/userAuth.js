@@ -158,6 +158,7 @@ router.post("/login", async (req, res) => {
     } else {
       const token = await userExist.generateAuthToken(res);
       if (token) {
+        req.email = email;
         return res.status(200).json({ message: "Login successfully" });
       }
       return res.status(402).json({ error: "token not provided" });
