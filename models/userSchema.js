@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const session = require("express-session");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -51,26 +52,28 @@ userSchema.pre("save", async function (next) {
 });
 
 // generating auth token
-userSchema.methods.generateAuthToken = async function (res) {
+userSchema.methods.generateAuthToken = async function (req) {
   try {
     const tokenExpiration = process.env.TOKEN_EXPIRATION || "1h"; // Set expiration time (default: 1 hour)
 
-    let createToken = jwt.sign(
+    // Generate JWT token
+    const createToken = jwt.sign(
       { _id: this._id },
       "IAMSUDIPTAGHORAMI32@GMAIL.COM1232145654",
       { expiresIn: tokenExpiration }
     );
-    res.cookie("authToken", createToken, {
-      expires: new Date(Date.now() + 3600000),
-      httpOnly: true,
-      domain: "foodiehubfrontend.vercel.app",
-    });
+
+    // Set token in session
+    req.session.authToken = createToken;
+
+    // Save the token to the user document
     this.tokens = this.tokens.concat({ token: createToken });
     await this.save();
 
     return createToken;
   } catch (error) {
     console.error(error);
+    throw new Error("Failed to generate auth token");
   }
 };
 
