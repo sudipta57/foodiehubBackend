@@ -98,12 +98,11 @@ router.post("/resturantlogin", async (req, res) => {
     if (!resturantPassword) {
       return res.status(401).json({ error: "Invalid email or password" });
     } else {
-      const token = await resturantExist.generateAuthToken();
-      res.cookie("resturantauthToken", token, {
-        expires: new Date(Date.now() + 3600000),
-        httpOnly: true,
-      });
-      return res.status(200).json({ message: "Login successful" });
+      const token = await resturantExist.generateAuthToken(res);
+      if (token) {
+        return res.status(200).json({ message: "Login successfully" });
+      }
+      return res.status(402).json({ error: "token not provided" });
     }
   } catch (error) {
     console.error(error);

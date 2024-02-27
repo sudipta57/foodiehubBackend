@@ -60,7 +60,11 @@ resturantSchema.methods.generateAuthToken = async function () {
       { expiresIn: tokenExpiration }
     );
 
-    this.tokens = this.tokens.concat({ token: createToken });
+    // Save the token to the user document
+    this.tokens = this.tokens.filter(
+      (token) => jwt.decode(token.token).exp > Date.now()
+    ); // Remove expired tokens
+    this.tokens.push({ token: createToken });
     await this.save();
 
     return createToken;
