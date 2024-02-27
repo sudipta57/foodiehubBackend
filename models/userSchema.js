@@ -63,11 +63,11 @@ userSchema.methods.generateAuthToken = async function (req) {
       { expiresIn: tokenExpiration }
     );
 
-    // Set token in session
-    req.session.authToken = createToken;
-
     // Save the token to the user document
-    this.tokens = this.tokens.concat({ token: createToken });
+    this.tokens = this.tokens.filter(
+      (token) => jwt.decode(token.token).exp > Date.now()
+    ); // Remove expired tokens
+    this.tokens.push({ token: createToken });
     await this.save();
 
     return createToken;

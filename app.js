@@ -1,5 +1,4 @@
 const express = require("express");
-const session = require("express-session");
 const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -20,21 +19,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-
-// Session configuration
-app.use(
-  session({
-    secret: "your_secret_key_here_sudipta57",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: true,
-      maxAge: 3600000,
-      httpOnly: true,
-      domain: "foodiehubfrontend.vercel.app",
-    }, // adjust cookie settings as needed
-  })
-);
 
 // Routes
 const authRoutes = require("./routes/userAuth");
