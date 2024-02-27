@@ -123,7 +123,7 @@ router.get("/resturantdata", async (req, res) => {
 // Saving food data to the database from the client
 router.post(
   "/insertFoodData",
-  resturantauthenticate,
+
   upload.single("image"),
   async (req, res) => {
     try {
@@ -188,13 +188,13 @@ router.post(
 );
 
 // Resturant menu
-// router.get("/resturantmenu", authenticate, async (req, res) => {
+// router.get("/resturantmenu",  async (req, res) => {
 //   // Fetching food data
 //   const fooddata = await fetchFoodData();
 //   // Sending food data
 //   res.json(fooddata);
 // });
-router.get("/resturantmenu", authenticate, async (req, res) => {
+router.get("/resturantmenu", async (req, res) => {
   // Fetch data from the resturantinfo collection
   const resturantData = await foodData.find();
   // Map over the data and add imgPath property
@@ -208,14 +208,14 @@ router.get("/resturantmenu", authenticate, async (req, res) => {
 });
 
 // // Sending food categories
-// router.get("/foodcatagory", authenticate, async (req, res) => {
+// router.get("/foodcatagory",  async (req, res) => {
 //   // Fetching food data
 //   // Sending food data
 //   res.json(foodcatagory);
 // });
 
 // Sending food categories
-router.get("/foodcatagory", authenticate, async (req, res) => {
+router.get("/foodcatagory", async (req, res) => {
   // Fetching food data
   const foodcatagory = await foodCatSchema.find();
   // Sending food data
@@ -223,7 +223,7 @@ router.get("/foodcatagory", authenticate, async (req, res) => {
 });
 
 // Logout
-router.get("/resturantlogout", resturantauthenticate, async (req, res) => {
+router.get("/resturantlogout", async (req, res) => {
   res.clearCookie("resturantauthToken");
   res.status(200).json({ message: "Logged Out Successfully" });
 });

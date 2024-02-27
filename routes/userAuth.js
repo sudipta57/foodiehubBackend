@@ -168,7 +168,7 @@ router.post("/login", async (req, res) => {
     return res.status(500).json({ error: "Interval server error" });
   }
 });
-router.get("/getdata", authenticate, (req, res) => {
+router.get("/getdata", (req, res) => {
   try {
     res.json(req.rootuser);
   } catch (error) {
@@ -176,7 +176,7 @@ router.get("/getdata", authenticate, (req, res) => {
   }
 });
 //contact
-router.post("/contact", authenticate, async (req, res) => {
+router.post("/contact", async (req, res) => {
   const { name, email, phone, message } = req.body;
   try {
     if (!name || !email || !phone || !message) {
@@ -216,14 +216,14 @@ router.post("/contact", authenticate, async (req, res) => {
   }
 });
 //logout
-router.get("/logout", authenticate, (req, res) => {
+router.get("/logout", (req, res) => {
   res.clearCookie("authToken");
   res.status(200).json({ message: "Logged Out Successful" });
 });
-router.get("/working", authenticate, (req, res) => {
+router.get("/working", (req, res) => {
   res.json(req.rootuser);
 });
-// router.post("/initiatepayment", authenticate, async (req, res) => {
+// router.post("/initiatepayment",  async (req, res) => {
 //   const { orderid } = req.body;
 //   try {
 //     // Perform any additional logic if needed (e.g., calculating total amount to charge)
