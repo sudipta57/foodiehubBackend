@@ -11,7 +11,7 @@ connectToDatabase();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://foodiehubfrontend.vercel.app", "http://localhost:3000"],
+    origin: ["https://foodiehubfrontend.vercel.app", "http://localhost:5173"],
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     credentials: true,
     optionsSuccessStatus: 200,
