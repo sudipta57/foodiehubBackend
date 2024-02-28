@@ -215,7 +215,7 @@ router.post("/contact", async (req, res) => {
 });
 //logout
 
-router.get("/logout", async (req, res) => {
+router.post("/logout", async (req, res) => {
   const { email } = req.body;
   try {
     // Find the user by email or however you identify the user
