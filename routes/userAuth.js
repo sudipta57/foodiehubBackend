@@ -52,9 +52,7 @@ router.post("/paymentverification", async (req, res) => {
       razorpay_signature,
     });
 
-    res.redirect(
-      `https://foodiehubfrontend.vercel.app/paymentsuccess?referance${razorpay_payment_id}`
-    );
+    res.redirect(`https://foodiehubfrontend.vercel.app/paymentsuccess`);
   } else {
     res.status(400).json({ success: false });
   }
