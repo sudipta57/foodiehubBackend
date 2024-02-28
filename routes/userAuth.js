@@ -53,7 +53,7 @@ router.post("/paymentverification", async (req, res) => {
     });
 
     res.redirect(
-      `http://localhost:5173/paymentsuccess?referance${razorpay_payment_id}`
+      `https://foodiehubfrontend.vercel.app/paymentsuccess?referance${razorpay_payment_id}`
     );
   } else {
     res.status(400).json({ success: false });
