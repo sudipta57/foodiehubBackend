@@ -129,7 +129,7 @@ router.post(
         req.body;
       if (
         !req.file ||
-        !foodcat ||
+        !CategoryName ||
         !foodname ||
         !pricehalf ||
         !pricefull ||
