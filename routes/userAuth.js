@@ -221,7 +221,7 @@ router.get("/logout", (req, res) => {
   res.status(200).json({ message: "Logged Out Successful" });
 });
 router.get("/working", (req, res) => {
-  res.json(req.rootuser);
+  res.json({ message: "demo" });
 });
 // router.post("/initiatepayment",  async (req, res) => {
 //   const { orderid } = req.body;
