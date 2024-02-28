@@ -193,13 +193,14 @@ router.post(
 //   res.json(fooddata);
 // });
 router.get("/resturantmenu", async (req, res) => {
-  // Fetch data from the resturantinfo collection
   const resturantData = await foodData.find();
-  // Map over the data and add imgPath property
   const resturantDataWithImgPath = resturantData.map((item) => ({
-    ...item._doc, // Copy all existing properties
-    imgPath: `http://localhost:3000/${item.img}`, // Add imgPath property
+    imgPath: `http://localhost:3000/${item.img}`,
   }));
+  console.log(imgPath);
+  resturantData.map((item) => {
+    console.log(item.img);
+  });
 
   // Send the data as a JSON response
   res.json(resturantDataWithImgPath);
