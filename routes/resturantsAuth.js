@@ -198,7 +198,7 @@ router.get("/resturantmenu", async (req, res) => {
   // Map over the data and add imgPath property
   const resturantDataWithImgPath = resturantData.map((item) => ({
     ...item._doc, // Copy all existing properties
-    imgPath: `http://localhost:3000/${item.img}`, // Add imgPath property
+    imgPath: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWjK2pMwQQ2lYacEdKeGXaY6pvtePhwFft9wbXtLI-2A&s`, // Add imgPath property
   }));
 
   // Send the data as a JSON response
