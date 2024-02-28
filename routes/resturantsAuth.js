@@ -18,8 +18,6 @@ const upload = multer({ storage });
 const { fetchRestaurantData } = require("../db/connection");
 
 const Resturant = require("../models/resturentSchema");
-const resturantauthenticate = require("../middleware/resturantAuth");
-const authenticate = require("../middleware/authenticate");
 const foodData = require("../models/foodData");
 const foodCatSchema = require("../models/foodcatSchema");
 const { default: mongoose } = require("mongoose");
@@ -223,9 +221,25 @@ router.get("/foodcatagory", async (req, res) => {
 });
 
 // Logout
-router.get("/resturantlogout", async (req, res) => {
-  res.clearCookie("resturantauthToken");
-  res.status(200).json({ message: "Logged Out Successfully" });
+router.post("/resturantlogout", async (req, res) => {
+  const { email } = req.body;
+  try {
+    // Find the user by email or however you identify the user
+    const user = await Resturant.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Remove all tokens from the user
+    user.tokens = [];
+    await user.save();
+
+    res.status(200).json({ message: "Logged Out Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // creating route for email verification of resturant
