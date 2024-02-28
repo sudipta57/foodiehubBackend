@@ -214,9 +214,27 @@ router.post("/contact", async (req, res) => {
   }
 });
 //logout
-router.get("/logout", (req, res) => {
-  res.clearCookie("authToken");
-  res.status(200).json({ message: "Logged Out Successful" });
+
+router.get("/logout", async (req, res) => {
+  const { email } = req.body;
+  try {
+    // Find the user by email or however you identify the user
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Remove all tokens from the user
+    user.tokens = [];
+    await user.save();
+
+    res.clearCookie("authToken");
+    res.status(200).json({ message: "Logged Out Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 router.get("/working", (req, res) => {
   res.json({ message: "demo" });
