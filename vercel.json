@@ -6,7 +6,12 @@
    ],
    "routes": [
      { "src": "/(.*)", "dest": "/app.js" }
+   ],
+   "rewrites": [
+     {
+       "source": "/uploads/(.*)",
+       "destination": "/uploads/$1"
+     }
    ]
-   
  }
  
