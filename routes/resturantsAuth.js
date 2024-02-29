@@ -140,7 +140,7 @@ router.post(
           .json({ error: "Upload and check all the files." });
       }
 
-      const imagePath = `./uploads/${Date.now()}-${req.file.originalname}`;
+      const imagePath = `./public/${Date.now()}-${req.file.originalname}`;
       // Move the uploaded file to the specified path
       fs.renameSync(req.file.path, imagePath);
 
