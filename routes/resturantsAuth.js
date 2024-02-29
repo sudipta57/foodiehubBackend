@@ -195,7 +195,7 @@ router.post(
 router.get("/resturantmenu", async (req, res) => {
   const resturantData = await foodData.find();
   const resturantDataWithImgPath = resturantData.map((item) => ({
-    imgPath: `http://localhost:3000/${item.img}`,
+    imgPath: `https://foodiehub-backend.vercel.app/${item.img}`,
   }));
   console.log(imgPath);
   resturantData.map((item) => {
