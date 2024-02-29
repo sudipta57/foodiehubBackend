@@ -185,22 +185,12 @@ router.post(
   }
 );
 
-// Resturant menu
-// router.get("/resturantmenu",  async (req, res) => {
-//   // Fetching food data
-//   const fooddata = await fetchFoodData();
-//   // Sending food data
-//   res.json(fooddata);
-// });
 router.get("/resturantmenu", async (req, res) => {
   const resturantData = await foodData.find();
   const resturantDataWithImgPath = resturantData.map((item) => ({
-    imgPath: `https://foodiehub-backend.vercel.app/${item.img}`,
+    ...item._doc, // spread all existing properties of the item
+    imgPath: `http://localhost:3000/${item.img}`,
   }));
-  console.log(imgPath);
-  resturantData.map((item) => {
-    console.log(item.img);
-  });
 
   // Send the data as a JSON response
   res.json(resturantDataWithImgPath);

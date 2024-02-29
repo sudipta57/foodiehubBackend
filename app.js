@@ -7,6 +7,9 @@ const { connectToDatabase } = require("./db/connection");
 // Connect to the database
 connectToDatabase();
 
+// Serve static files from the '/uploads' directory
+app.use("/uploads", express.static("uploads"));
+
 // Middleware
 app.use(express.json());
 app.use(
