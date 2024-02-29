@@ -167,16 +167,14 @@ router.post(
         });
         console.log("found");
         // Insert the sample data into the FoodData collection
-        const result = await foodData.create(sampleFoodData);
+        await foodData.create(sampleFoodData);
 
-        res.status(200).json({ message: "File uploaded successfully", result });
+        res.status(200).json({ message: "File uploaded successfully" });
       } else {
         // Insert the sample data into the FoodData collection
-        const result = await foodData.create(sampleFoodData);
+        await foodData.create(sampleFoodData);
 
-        res
-          .status(200)
-          .json({ message: "File uploadedss successfully", result });
+        res.status(200).json({ message: "File uploadedss successfully" });
       }
     } catch (error) {
       console.error(error);
